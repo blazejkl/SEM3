@@ -1,0 +1,281 @@
+\documentclass[10pt,a4paper]{article}
+
+% Pakiety
+\usepackage[utf8]{inputenc} % Kodowanie znaków
+\usepackage[T1]{fontenc} % Poprawne wyświetlanie polskich znaków
+\usepackage[polish]{babel} % Ustawienie języka polskiego
+\usepackage{geometry} % Ustawienia strony
+\usepackage{fancyhdr} % Nagłówki i stopki
+\usepackage{titlesec} % Formatowanie sekcji
+\usepackage{amsmath} % Dodatkowe komendy matematyczne
+\usepackage{enumitem}
+\usepackage{amssymb} % Symbole matematyczne, w tym \mathbb
+\usepackage{multicol}
+
+% Ustawienia strony
+\geometry{margin=2cm}
+
+% Nagłówek
+\pagestyle{fancy}
+\fancyhf{} % Czyszczenie nagłówków i stopek
+\renewcommand{\headrulewidth}{0pt} % Usunięcie linii w nagłówku
+
+
+% Sekcja tytułowa na każdej stronie
+\newcommand{\zagadnienie}[3]{%
+    \clearpage % Każde zagadnienie na nowej stronie
+    \noindent\textbf{#1} #2\\
+    #3
+}
+
+% Dokument
+\begin{document}
+
+% treść wykładu
+\zagadnienie{RR-W1, 07.10.25}{}
+{
+\subsubsection*{Wstęp}
+\begin{quote}
+$y'=y\cos x\quad y(x)=\int y(t)\cos x\; \mathrm{d}t \quad y=C\mathrm{e}^{\sin x}$\\
+$y''+9y=0 \quad y(x)=C_1\sin 3x+C_2\cos 3x$\\\\
+R.r. zwyczajne – szukana funkcja jednej zmiennej.\\
+R.r. cząstkowe – szukana funkcja wielu zmiennych.\\\\
+$\mathrm{np.}\quad u=u(x,y)\quad \frac{\partial u}{\partial x}+\frac{\partial u}{\partial y}=0 \quad \text{– równanie transportu}$\\
+$u=u(t,x,y)\quad \frac{\partial u}{\partial t}-\left(\frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2}\right)=0 \quad \text{– równanie przewodnictwa ciepła}$\\
+$u=u(t,x,y)\quad \frac{\partial^2 u}{\partial t^2}-\left(\frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2}\right)=0 \quad \text{– równanie falowe}$
+\end{quote}
+
+\subsubsection*{Definicja (R.r.z. rzędu $n \ge 1$)}
+\begin{quote}
+R.r.z rzędu $n \ge 1$, to zależność postaci
+$F\left(y^{(n)}, y^{(n-1)}, \dots, y, t\right)=0$, gdzie $F$ jest daną\\
+funkcją, a $y$ jest szukaną funkcją o
+wartościach w $\mathbb{R}^m$, $m \ge 1$.
+\end{quote}
+
+\subsubsection*{Przykład}
+\begin{quote}
+$y(t)=\begin{pmatrix} y_1(t) \\ y_2(t) \end{pmatrix}$, $y'=Ay \quad A=\begin{pmatrix} 1 & -3 \\ 7 & 5 \end{pmatrix}$\\
+$y(t)=\mathrm{e}^{At}\cdot C$
+\end{quote}
+
+\subsubsection*{Definicja (R.r.z. liniowe)}
+\begin{quote}
+R.r.z jest \textbf{liniowe}, jeżeli $F$ zależy liniowo
+od $y^{(k)}_l$ dla $k=0, \dots, n$, $l=1, \dots, m$.\\
+$\mathrm{np.}\quad y'=y^2$ \underline{nie jest liniowe}
+\end{quote}
+
+\subsubsection*{R.r. rzędu I (postać uwikłana)}
+\begin{quote}
+Uwikłane: $F(t, y, y') = 0$\\
+Jawne: $y' = -\frac{F_t}{F_y}$
+\end{quote}
+
+\subsubsection*{R.r. rzędu II (ZDN)}
+\begin{quote}
+II ZDN: $\quad x''(t) = \frac{1}{m} F(t, x(t), x'(t)), \quad x(0)=x_0, \quad x'(0)=v_0$
+\end{quote}
+
+\subsubsection*{Przykład}
+\begin{quote}
+Sprawdzić, że $y^2+x^2=1$ jest rozwiązaniem $y y' + x = 0$\\
+$$y^2(x)+x^2=1 \quad \mid \frac{\mathrm{d}}{\mathrm{d}x} \implies 2y(x)y'(x)+2x=0 \quad \mid \cdot \frac{1}{2} \quad  \implies y(x)y'(x)+x=0$$
+\end{quote}
+
+\subsubsection*{Definicja (Zagadnienie Cauchy'ego (Zagadnienie Początkowe))}
+\begin{quote}
+Zagadnienie Cauchy'ego (zagadnienie początkowe) to r.r. rzędu $n \ge 1$ z dodanym warunkiem początkowym:\\
+$$y(t_0)=y_0$$
+$$y'(t_0)=y_1$$
+$$\dots$$
+$$y^{(n-1)}(t_0)=y_{n-1}, \quad \text{gdzie } y_0, y_1, \dots, y_{n-1} \text{ dane}$$
+\end{quote}
+
+\subsubsection*{Uwaga}
+\begin{quote}
+Jeżeli mamy jedno równanie różniczkowe rzędu $n \ge 1$, to możemy je zapisać jako $n$ równań I rzędu.
+\end{quote}
+
+\subsubsection*{Przykład}
+\begin{quote}
+$y''' + (y'')^2 - \sin(y') + \sqrt{|y|} = \ln x$\\
+$z_0(x) = y(x)$\\
+$z_1(x) = y'(x)$\\
+$z_2(x) = y''(x)$\\
+$z'_0 = y' = z_1$\\
+$z'_1 = y'' = z_2$\\
+$z'_2 = y''' = -(z_2)^2 + \sin(z_1) - \sqrt{|z_0|} + \ln x$\\
+$z = \begin{pmatrix} z_0 \\ z_1 \\ z_2 \end{pmatrix}$, to $z'=F(x,z)$\\
+$$F(x,z) = \begin{pmatrix} z_1 \\ z_2 \\ -(z_2)^2 + \sin(z_1) - \sqrt{|z_0|} + \ln x \end{pmatrix}$$
+\end{quote}
+
+\subsubsection*{Definicja (R.r.z. rzędu I w postaci normalnej)}
+\begin{quote}
+R.r.z rzędu \textbf{I} w postaci \textbf{normalnej}, to równanie $y'=f(t,y)$.
+\end{quote}
+
+\subsubsection*{Uwaga}
+\begin{quote}
+Rozpatrzmy równanie różniczkowe:\\
+$$(\star) \begin{cases} y'=f(t,y) \\ y(t_0)=y_0 \end{cases} \quad F: U \to \mathbb{R}^m \text{ dana, } U \subset \mathbb{R}^{m+1} \text{ otwarty,} \quad
+(t_0, y_0) \in U, \quad y=\begin{pmatrix} y_1 \\ \vdots \\ y_m \end{pmatrix}.$$
+Są tylko 2 twierdzenia o istnieniu rozwiązań $(\star)$.
+\end{quote}
+
+\subsubsection*{Twierdzenie Peano (o lokalnym istnieniu rozwiązań)}
+\begin{quote}
+Niech $Q=[t_0-a, t_0+a] \times \overline{B(y_0, b)}$, $a, b > 0$. Niech $f: Q \to \mathbb{R}^m$ ciągła i $M=\sup_a |f|$.\\
+Wtedy istnieje rozwiązanie $(\star)$ określone
+co najmniej na przedziale $(t_0-\alpha, t_0+\alpha)$,
+gdzie $\alpha = \min \left\{a, \frac{b}{M}\right\}$.
+\end{quote}
+
+\subsubsection*{Twierdzenie Picarda-Lindelöfa (o lokalnym istnieniu i jednoznaczności)}
+\begin{quote}
+Przy założeniach tw. Peano, jeżeli dodatkowo $F$ jest
+\textbf{lipschitzowsko ciągła względem $y$}, to \\ istnieje
+\textbf{dokładnie jedno rozwiązanie} $(\star)$ określone na
+przedziale $(t_0-\alpha, t_0+\alpha)$, gdzie $\alpha = \min \left\{a, \frac{b}{M}, \frac{1}{L}\right\}$.\\
+$$\text{(Lipschitzowsko ciągła: } \exists L \ge 0 \quad \forall (t,y_1), (t,y_2) \in Q \quad \|F(t,y_1) - F(t,y_2)\| \le L \|y_1-y_2\| \text{)}$$
+\end{quote}
+}
+
+\zagadnienie{RR-W2, 14.10.25}{}
+{
+    \subsubsection*{Przykład}
+\begin{quote}
+Równanie:\\
+$y' = \sqrt{|y|}$ \\
+$f(t,y) = \sqrt{|y|} \quad - \text{ciągła na } \mathbb{R}^2$ \\
+Z tw. Peano istnieje rozwiązanie przechodzące przez dowolny ustalony punkt $(t_0, y_0) \in \mathbb{R}^2$. \\\\
+\textbf{Co z jednoznacznością rozwiązań?}\\
+Czy jeśli $Q$ - kostka, to czy istnieje $L \ge 0$ takie, że $\forall (t,y_1), (t,y_2) \in Q: |f(t,y_1) - f(t,y_2)| \le L|y_1 - y_2|$? \\
+Rozpatrzmy przypadek $Q \subseteq \{(t,y): t \in \mathbb{R}, y > 0 \}$: \\
+$$|\Delta| = |f(t,y_1) - f(t,y_2)| = |\sqrt{y_1} - \sqrt{y_2}| = \left| \frac{y_1 - y_2}{\sqrt{y_1} + \sqrt{y_2}} \right| = \frac{1}{|\sqrt{y_1} + \sqrt{y_2}|} \cdot |y_1 - y_2|$$
+Niech $y_0 > 0$. Wtedy w pewnym otoczeniu $(y_0 - b, y_0 + b)$ mamy:\\
+$\sqrt{y_1} + \sqrt{y_2} \ge \sqrt{y_0 - b} + \sqrt{y_0 - b} = 2\sqrt{y_0 - b} > 0$\\
+stąd\\
+$$\frac{1}{|\sqrt{y_1} + \sqrt{y_2}|} \le \frac{1}{2\sqrt{y_0 - b}} = L$$
+W tym przypadku warunek Lipschitza jest spełniony lokalnie. \\\\
+Rozpatrzmy przypadek $Q \subseteq \{(t,y): t \in \mathbb{R}, y < 0\}$\\
+$$(\Delta) = |f(t,y_1) - f(t,y_2)| = |\sqrt{-y_1} - \sqrt{-y_2}| = \left| \frac{-y_1 + y_2}{\sqrt{-y_1} + \sqrt{-y_2}} \right| = \frac{1}{\sqrt{-y_1} + \sqrt{-y_2}} \cdot |y_1 - y_2| \leq L|y_1-y_2|$$\\
+\textbf{Wniosek:}\\
+Na zbiorze $\{(t,y): t \in \mathbb{R}, y \ne 0\}$ mamy \textbf{jednoznaczność} rozwiązań, tzn. $\forall (t_0, y_0) \in \mathbb{R}^2$, takiego że 
+$y_0 \ne 0$ istnieje dokładnie jedno rozwiązanie przechodzące przez $(t_0, y_0)$ i określone na pewnym przedziale $(t_0 - \delta, t_0 + \delta)$ gdzie $\delta > 0$.\\
+
+\textbf{Spróbujmy rozwiązać to równanie}\\
+$y' = \sqrt{|y|}$\\\\
+\textbf{Przypadek $y > 0$}\\
+$y' = \sqrt{y} \quad$ (nie da się odcałkować) \\
+$\frac{y'}{\sqrt{y}} = 1$\\
+$\left( 2\sqrt{y} \right)' = 1$ \\
+$\int 2\sqrt{y} = \int 1 dt$ \\
+$2\sqrt{y} = t + C, \quad C \in \mathbb{R}$ \\
+$\sqrt{y} = \frac{1}{2}(t + C), \quad C \in \mathbb{R}$ \\
+$y = \frac{1}{4}(t + C)^2, \quad C \in \mathbb{R}$ \\
+$t+C > 0 \quad \text{(bo y>0)}$\\
+$\quad t > -C$
+
+\textbf{Przypadek $y < 0$}\\
+$y' = \sqrt{-y}$\\
+$\frac{y'}{\sqrt{-y}} = 1$\\
+$\left( -2\sqrt{-y} \right)' = 1$ \\
+$-2\sqrt{-y} = t + C, \quad C \in \mathbb{R}$\\
+$t + C < 0 \quad t < -C$\\
+$\sqrt{-y} = -\frac{1}{2}(t + C)$ \\
+$y = -\frac{1}{4}(t + C)^2$\\\\\\
+
+\textbf{Przypadek $y = 0$}\\
+Zauważmy, że $y \equiv 0$ też jest rozwiązaniem równania $y' = \sqrt{|y|}$.\\\\
+\textbf{Powrót do warunku Lipschitza}\\
+Czy jeżeli $Q = \{(t,y): |t - t_0| \le a, |y| \le b\}$ to czy na $Q$ zachodzi warunek Lipschitza?\\
+Gdyby $|\sqrt{|y_1|} - \sqrt{|y_2|}| \le L|y_1 - y_2| \text{ na } Q$, to 
+$y_2=0$ i $y_1=\frac{1}{n} \quad \sqrt{\frac{1}{n}} \leq L\frac{1}{n}$, więc $L$ nie istnieje.\\\\
+\textbf{Uwaga!}\\
+Jeśli $g$ ma ograniczoną pochodną na zbiorze $[a,b]$ to $g$ jest lipschitzowsko ciągła, bo z tw. Lagrange'a o wartości średniej $|g(x) - g(y)| = |g'(c)| \cdot |x - y| \le M \cdot |x - y|$
+(gdzie $M = \sup_{x \in [a,b]} |g'(x)|$).\\
+
+\textbf{Wniosek:} Nie jest spełniony warunek Lipschitza, więc spróbujmy pokazać niejednoznaczność rozwiązań w punktach $(t_0, 0)$ dla $t_0 \in \mathbb{R}$.\\
+
+$$y_{t_0}(t) = \begin{cases} \frac{1}{4}(t - t_0)^2 & \text{dla } t \ge t_0 \\ -\frac{1}{4}(t - t_0)^2 & \text{dla } t < t_0 \end{cases}$$
+$$\lim_{t \to t_0^+} \frac{1}{4}(t - t_0)^2 = 0 = \lim_{t \to t_0^-} -\frac{1}{4}(t - t_0)^2$$
+Zadając $y_{t_0}(t_0) = 0$ otrzymujemy funkcję ciągłą.\\
+$$y'_{t_0}(t) = \begin{cases} \frac{1}{2}(t - t_0) & \text{dla } t > t_0 \\ -\frac{1}{2}(t - t_0) & \text{dla } t < t_0 \end{cases}$$
+$y_{t_0}$ jest klasy $C^1$ (ciągła i pochodna również ciągła).\\\\
+Czy $y_{t_0}$ jest rozwiązaniem $y' = \sqrt{|y|}$? Tak.\\
+
+Tutaj jest rysunek i z niego wniosek: Stąd przez $(t_0, 0)$ przechodzą przynajmniej 2 rozwiązania\\
+
+Czy przez $(t_0, 0)$ przechodzi więcej rozwiązań?\\
+Mamy \textbf{kontinuum różnych rozwiązań}.\\
+Dla $\tilde{t}_0 < t_0$ określmy funkcję:\\
+$$y_{\tilde{t}_0, t_0}(t) = \begin{cases} -\frac{1}{4}(t - \tilde{t}_0)^2 & \text{dla } t \le \tilde{t}_0 \\ 0 & \text{dla } \tilde{t}_0 \leq t \leq t_0 \\ \frac{1}{4}(t - t_0)^2 & \text{dla } t > t_0 \end{cases}$$
+Łatwo sprawdzić, że $y_{\tilde{t}_0, t_0}$ jest klasy $C^1$ i spełnia $y' = \sqrt{|y|}$ z warunkiem początkowym $y(t_0) = 0$ i jest tych rozwiązań continuum.
+\end{quote}
+
+\subsubsection*{Definicja (Rozwiązanie osobliwe)}
+\begin{quote}
+Funkcja $y(t)$ będąca rozwiązaniem równania $y'=f(t,y)$ nazywa się \textbf{rozwiązaniem osobliwym}, jeżeli każdy punkt wykresu $y(t)$ jest punktem niejednoznaczności rozwiązań.\\
+Przykład: $y' = \sqrt{|y|}$. Rozwiązanie $y \equiv 0$ jest rozwiązaniem osobliwym.
+\end{quote}
+
+\subsubsection*{Twierdzenie o całkowej postaci równania różniczkowego}
+\begin{quote}
+Niech $f$ ciągła. Wtedy $y \in C^1(I)$, gdzie $I$ jest przedziałem, spełnia zagadnienie Cauchy'ego:\\
+$$\begin{cases} y' = f(t,y) \\ y(t_0) = y_0 \end{cases} \quad \iff \quad y \in C(I) \quad \text{i} \quad y(t) = y_0 + \int_{t_0}^{t} f(s,y(s)) ds \quad \text{dla } t \in I$$
+\end{quote}
+
+\subsubsection*{Dowód}
+\begin{quote}
+$\implies$\\
+$y'=f(t,y) \quad | \int_{t_0}^t$\\
+$y(t) - y(t_0) = \int_{t_0}^t f(s,y(s)) ds$\\\\
+$\impliedby$ \\
+$y(t) = y_0 + \int_{t_0}^t f(s,y(s)) ds \text{ jest klasy } C^1$\\
+$\text{więc różniczkujemy}$
+\end{quote}
+
+\subsubsection*{Jak rozwiązać równanie całkowe?}
+\begin{quote}
+$$y(t) = y_0 + \int_{t_0}^{t} f(s,y(s)) ds \quad t \in (t_0 - \alpha, t_0 + \alpha) = I$$
+gdzie $y(t)$ jest \textbf{niewiadomą funkcją}.\\\\
+Niech $X = \{ w \in C(I) \mid w(t_0) = y_0 \}$. \\
+Niech $P$ będzie określone na X wzorem $(Pw)(t) = y_0 + \int_{t_0}^{t} f(s,w(s)) ds$\\\\
+Wtedy $P: X \to X$.\\
+Wtedy $y$ jest rozwiązaniem r.r. $\begin{cases} y' = f(t,y) \\ y(t_s) = y_0 \end{cases} \iff y \text{ jest pkt. stałym } P \text{ tj. } y = Py$. \\\\
+Przy odpowiednich założeniach można pokazać, że $P$ jest kontrakcją na pewnej podprzestrzeni $X$.\\
+Zatem z tw. Banacha o punkcie stałym, punkt stały $y$ jest granicą ciągu iteracji $P$ tj.
+$$y_{n+1} = P y_n \quad \text{i wtedy} \quad y_n \to y \quad \text{gdy } y = Py$$
+Def. Ciąg $y_{n+1} = P y_n$ nazywamy \textbf{ciągiem przybliżeń Picarda}.
+\end{quote}
+
+\subsubsection*{Przykład}
+\begin{quote}
+\textbf{Wyznaczyć ciąg przybliżeń Picarda dla zagadnienia $\begin{cases} y' = y \\ y(0) = 1 \end{cases}$}\\
+Postać całkowa:\\
+$y(t) = 1 + \int_{0}^{t} y(s) ds$\\
+$f(t,y) = y$\\
+$y_0 = y(0) = 1$\\
+Wzór iteracyjny: $y_{n+1}(t) = 1 + \int_{0}^{t} y_n(s) ds$\\\\
+$y_0(t) = 1$\\
+$y_1(t) = 1 + \int_{0}^{t} 1 ds = 1 + t$\\
+$y_2(t) = 1 + \int_{0}^{t} (1 + s) ds = 1 + t + \frac{t^2}{2}$\\
+$y_3(t) = 1 + \int_{0}^{t} \left( 1 + s + \frac{s^2}{2} \right) ds = 1 + t + \frac{t^2}{2} + \frac{t^3}{6}$\\
+$\vdots$\\
+$y_n(t) = \sum_{k=0}^{n} \frac{t^k}{k!} \quad $ hipoteza (przez indukcję można dowieść)\\\\
+Wtedy $y_n \to y$ na $[-a, a] \; \forall_{a > 0}$\\\\
+Zatem $y(t) = e^t$ (\emph{szereg zbiega do } $e^t$).
+\end{quote}
+
+}
+
+
+
+\zagadnienie{RR-W3, 21.10.25}{}
+{
+    
+}
+
+
+\end{document}

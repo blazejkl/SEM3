@@ -1,0 +1,447 @@
+\documentclass[10pt,a4paper]{article}
+
+% Pakiety
+\usepackage[utf8]{inputenc} % Kodowanie znaków
+\usepackage[T1]{fontenc} % Poprawne wyświetlanie polskich znaków
+\usepackage[polish]{babel} % Ustawienie języka polskiego
+\usepackage{geometry} % Ustawienia strony
+\usepackage{fancyhdr} % Nagłówki i stopki
+\usepackage{titlesec} % Formatowanie sekcji
+\usepackage{amsmath} % Dodatkowe komendy matematyczne
+\usepackage{enumitem}
+\usepackage{amssymb} % Symbole matematyczne, w tym \mathbb
+\usepackage{multicol}
+
+% Ustawienia strony
+\geometry{margin=2cm}
+
+% Nagłówek
+\pagestyle{fancy}
+\fancyhf{} % Czyszczenie nagłówków i stopek
+\renewcommand{\headrulewidth}{0pt} % Usunięcie linii w nagłówku
+
+
+% Sekcja tytułowa na każdej stronie
+\newcommand{\zagadnienie}[3]{%
+    \clearpage % Każde zagadnienie na nowej stronie
+    \noindent\textbf{#1} #2\\
+    #3
+}
+
+% Dokument
+\begin{document}
+
+% treść wykładu
+\zagadnienie{AM3-W1, 08.10.25 (niesformatowane z wykładem) (bez uzupełnionych dowodów)}{}
+{
+    \subsubsection*{Definicja (przestrzeni topologicznej).}
+    \begin{quote}
+    \textbf{Przestrzenią topologiczną} nazywamy parę $(X, \mathcal{T})$, gdzie $X$ to zbiór, a $\mathcal{T} \subset 2^X$ oraz spełnione są warunki:\\
+    (1) $\emptyset, X \in \mathcal{T}$,\\
+    (2) $\forall_{\alpha \in A} U_{\alpha} \in \mathcal{T} \Rightarrow \bigcup \{U_{\alpha}: \alpha \in A\} \in \mathcal{T}$,\\
+    (3) $U_1, U_2 \in \mathcal{T} \Rightarrow U_1 \cap U_2 \in \mathcal{T}$.\\\\
+    Zbiory należące do topologii nazywamy \textbf{otwartymi}. \\
+    Dopełnienia zbiorów otwartych nazywamy zbiorami \textbf{domkniętymi}. \\\\
+    $\mathcal{T} = 2^X \leftarrow$ \textbf{topologia dyskretna} \\
+    $\mathcal{T} = \{\emptyset, X\} \leftarrow$ \textbf{topologia antydyskretna}
+    \end{quote}
+
+
+    \subsubsection*{Definicja (przestrzeni metrycznej).}
+    \begin{quote}
+    \textbf{Przestrzenią metryczną} nazywamy parę $(X, d)$, gdzie $X$ to zbiór, a $d: X \times X \to [0, \infty)$ to funkcja, zwana \textbf{metryką}, spełniająca następujące warunki:\\
+    (1) $d(x, y) = d(y, x)$,\\
+    (2) $d(x, y) = 0 \iff x = y$,\\
+    (3) $d(x, y) \leq d(x, z) + d(z, y)$.\\
+    Trzecia własność jest równoważna \textbf{dolnej nierówności trójkąta}:
+    $$
+    d(x, z) \geq |d(x, y) - d(y, z)|.
+    $$
+    \end{quote}
+
+    \subsubsection*{Definicja (topologii zadanej przez metrykę, kuli).}
+    \begin{quote}
+    Rodzinę $\mathcal{T}_d$ nazywamy \textbf{topologią zadaną przez metrykę $\mathbf{d}$}, jeśli zachodzi:
+    $$U \in \mathcal{T}_d \iff \forall_{x \in U} \exists_{\varepsilon > 0} B(x, \varepsilon) \subset U,$$
+    gdzie
+    $$B(x, \varepsilon) = \{y \in X : d(x, y) < \varepsilon\}.$$
+    \end{quote}
+
+    \subsubsection*{Twierdzenie (o topologii zadanej przez metrykę).}
+    \begin{quote}
+    Rodzina $\mathcal{T}_d$ jest \emph{topologią}.
+    \end{quote}
+
+    \subsubsection*{Definicja (topologii metryzowalnej).}
+    \begin{quote}
+    Jeśli możemy znaleźć metrykę zadającą topologię, to nazywamy tę topologię \textbf{metryzowalną}.
+    \end{quote}
+
+    \subsubsection*{Definicja (wnętrza zbioru).}
+    \begin{quote}
+        Wnętrzem zbioru $A$ nazwiemy sumę wszystkich zbiorów otwartych zawartych w $A$:
+        $$\mathrm{int}(A) = \bigcup \{U \in \mathcal{T} : U \subset A\}$$
+    \end{quote}
+
+    \subsubsection*{Definicja (domknięcia zbioru).}
+    \begin{quote}
+    \textbf{Domknięciem} $A$ nazywamy przecięcie wszystkich zbiorów domkniętych zawierających $A$:
+    $$\overline{A} = \bigcap \{F : F^c \in \mathcal{T}, F \supset A\}$$
+    \end{quote}
+
+    \subsubsection*{Stwierdzenie (o wnętrzu i domknięciu).}
+    \begin{quote}
+    \begin{enumerate}[label=\alph*)]
+        \item $\mathrm{int}\, A \subset A \subset \overline{A}$
+        \item $\mathrm{int}\, A \in \mathcal{T}, (\overline{A})^c \in \mathcal{T}$
+        \item $\mathrm{int}\, A \supset \{x \in A: \exists_{x \in U \in \mathcal{T}} \; U \subset A\}$
+        \item $\overline{A} = (\mathrm{int}\, A^c)^c$
+    \end{enumerate}
+    \end{quote}
+
+    \subsubsection*{Wniosek}
+    \begin{quote}
+    $x \in \overline{A}^c \iff \exists_{U \in \mathcal{T}} \; x \in U \subset A^c \quad (\text{wynika z d) i c) stw., bo } \exists_{U \in \mathcal{T}} \; x \in U \subset A^c \iff x \in \mathrm{int}\, A^c)$
+    \end{quote}
+
+    \subsubsection*{Definicja (Brzegu).}
+    \begin{quote}
+    Brzegiem zbioru $A$ nazywamy zbiór $\partial A = \overline{A} \setminus \mathrm{int}\, A$
+    \end{quote}
+
+    \subsubsection*{Wniosek}
+    \begin{quote}
+        $x \in \partial A \iff \forall_{x \in U \in \mathcal{T}} \; U \cap A \neq \emptyset, U \cap A^c \neq \emptyset$
+    \end{quote}
+
+    \subsubsection*{Twierdzenie (o trójpodziale).}
+    \begin{quote} Dla każdego zbioru $A$ przestrzeń $X$ rozpada się na sumę trzech rozłącznych zbiorów: \\
+    $$X = \mathrm{int}(A) \sqcup \mathrm{int}(A^c) \sqcup \partial A.$$
+    \end{quote}
+
+    \subsubsection*{Przykład}
+    \begin{quote}
+    $\mathrm{int}\, \mathbb{Q} = \emptyset, \mathrm{int}\, \mathbb{Q}^c = \emptyset, \mathrm{int}\, \partial \mathbb{Q} = \mathbb{R}$
+    \end{quote}
+
+    \subsubsection*{Definicja (zbiór gęsty).}
+    \begin{quote}
+    $A$ jest gęsty w $X \iff \overline{A} = X$
+    \end{quote}
+
+    \subsubsection*{Przykład (Zbiór Cantora).}
+    \begin{quote}
+    Zbiór Cantora: domknięty, nigdzie gęsty, puste wnętrze (konstr. geom: zaczynamy od $C_0 = \langle 0, 1 \rangle$, z $C_0$ usuwamy środkową $\frac{1}{3}$ i otrzymujemy $C_1$, z każdego odcinka $C_1$ robimy to samo, $\dots$, powtarzamy tę procedurę w nieskończoność, zbiór Cantora to zbiór punktów, które pozostaną po wykonaniu $\infty$ wielu kroków, formalnie $C = \bigcap_{n=0}^{\infty} C_n$
+    \end{quote}
+
+    \subsubsection*{Definicja (zbioru granicznego).}
+    \begin{quote}
+    Niech $(X, \mathcal{T})$ będzie przestrzenią topologiczną, a $(x_n) \in X$. Mówimy, że $x_0$ należy do \textbf{zbioru granicznego} ciągu $(x_n)$, jeżeli \\
+    $$\forall_{U \in \mathcal{T}, x_0 \in U} \; \#\{n \in \mathbb{N}: x_n \notin U\} < \infty.$$
+    Zbiór graniczny oznaczamy $\Lambda(x_n)$.
+    \end{quote}
+
+    \subsubsection*{Definicja (przeliczalnej bazy otoczeń $x_0$).}
+    \begin{quote}
+    Mówimy, że $x_0$ ma przeliczalną bazę otoczeń $\iff$ $\exists_{\{V_n\}_{n=1}^{\infty} \subset \mathcal{T}} \; \forall_{n} \; x_0 \in x_n, \forall_{x \in U \in T} \; \exists_n \; V_n \subset U$
+    \end{quote}
+
+    \subsubsection*{Definicja (przeliczalna baza otoczeń p. topologicznej).}
+    \begin{quote}
+    Mówimy, że przestrzeń topologiczna $(X, \mathcal{T})$ ma przeliczalną bazę otoczeń (\textbf{pierwszy warunek przeliczalności}) $\iff$ każdy punkt $x \in X$ ma przeliczalną bazę otoczeń.
+    \end{quote}
+
+    \subsubsection*{Uwaga}
+    \begin{quote}
+    Przestrzenie metryczne mają przeliczalne bazy otoczeń.
+    \end{quote}
+
+    \subsubsection*{Przykłady}
+    \begin{quote}
+    1. $\mathcal{T} = 2^X$ \\
+    $x_k \in \Lambda(x_n) \iff \exists_{n_0 \in \mathbb{N}} \; \forall_{n \geq n_0} \; x_n = x_0$ \\
+    2. $\mathcal{T} = \{\emptyset, X\}$ \\
+    $\Lambda(x_n) = X$
+    \end{quote}
+
+    \subsubsection*{Definicja (topologii Hausdorffa).}
+    \begin{quote}
+    Parę $(X, \mathcal{T})$ nazywamy \textbf{topologią Hausdorffa}, jeżeli spełniony jest warunek \\
+    $$\forall_{x_1, x_2 \in X, x_1 \neq x_2} \; \exists_{U_1 \ni x_1, U_2 \ni x_2, U_1, U_2 \in \mathcal{T}} \; U_1 \cap U_2 = \emptyset.$$
+    \end{quote}
+
+    \subsubsection*{Uwaga.}
+    \begin{quote}
+    Dla dowolnego ciągu $(x_n)$ w topologii Hausdorffa zachodzi $\#\Lambda(x_n) \leq 1$.
+    \end{quote}
+
+    \subsubsection*{Uwaga.}
+    \begin{quote}
+    Dowolna przestrzeń metryczna jest przestrzenią Hausdorffa.
+    \end{quote}
+
+}
+
+\zagadnienie{AM3-W2, 08.10.25 (niesformatowane z wykładem) (bez uzupełnionych dowodów)}{}
+{
+    \subsubsection*{Definicja (domknięcia ciągowego).}
+    \begin{quote}
+    Domknięciem ciągowym $A$ nazywamy zbiór \\
+    $$\mathrm{scl}(A) := \{x_0 \in X: \exists_{(x_n) \in A} \; x_0 \in \Lambda((x_n)_{n=1}^{\infty})\}.$$
+    \end{quote}
+
+    \subsubsection*{Twierdzenie (o domknięciu i domknięciu ciągowym).}
+    \begin{quote}
+    Zachodzi zawieranie $\mathrm{scl}(A) \subset \overline{A}$, a jeżeli topologia jest metryzowalna, to $\mathrm{scl}(A) = \overline{A}$.
+    \end{quote}
+
+    \subsubsection*{Uwaga.}
+    \begin{quote}
+    Bez założenia metryzowalności równość nie jest prawdziwa.
+    \end{quote}
+
+    \subsubsection*{Wniosek}
+    \begin{quote}
+    Kryterium domkniętości zbioru w przestrzeni metrycznej: $A = \mathrm{scl}(A)$
+    \end{quote}
+
+    \subsubsection*{Definicja (funkcji ciągłej).}
+    \begin{quote}
+    Funkcję $f : (X, \mathcal{T}_X) \to (Y, \mathcal{T}_Y)$ nazywamy \textbf{ciągłą}, jeżeli przeciwobraz dowolnego zbioru otwartego jest otwarty, tzn. \\
+    $$\forall_{U \in \mathcal{T}_Y} \; f^{-1}(U) \in \mathcal{T}_X.$$
+    \end{quote}
+
+    \subsubsection*{Definicja (funkcji ciągłej w sensie Heinego).}
+    \begin{quote}
+    Funkcję $f : (X, \mathcal{T}_X) \to (Y, \mathcal{T}_Y)$ nazywamy \textbf{ciągłą w sensie Heinego}, jeżeli \\
+    $$\forall_{(x_n) \in X} \; x_0 \in \Lambda((x_n)_{n=1}^{\infty}) \implies f(x_0) \in \Lambda((f(x_n))_{n=1}^{\infty}),$$
+    gdzie w przestrzeniach Hausdorffa zbiór graniczny zamieniany jest na granicę.
+    \end{quote}
+
+    \subsubsection*{Twierdzenie (o równoważnych warunkach ciągłości).}
+    \begin{quote}
+    Jeśli $f$ jest ciągła, to zachodzi warunek Heinego ciągłości. Jeśli topologia jest metryzowalna, to implikacja zachodzi też w drugą stronę.
+    \end{quote}
+
+    \subsubsection*{Definicja (bazy topologii).}
+    \begin{quote}
+    Bazą topologii $\mathcal{T}$ nazywamy taką rodzinę $\mathcal{B} \subset \mathcal{T}$, że dowolny zbiór $U \in \mathcal{T}$ ma postać \\
+    $$U = \bigcup \{V \in \mathcal{B}' : \mathcal{B}' \subset \mathcal{B}\}.$$
+    \end{quote}
+
+    \subsubsection*{Stwierdzenie (o bazie topologii $\mathcal{T}_d$).}
+    \begin{quote}
+    Kule otwarte stanowią bazę w $\mathcal{T}_d$.
+    \end{quote}
+
+    \subsubsection*{Definicja (podbazy topologii).}
+    \begin{quote}
+    Rodzinę $\mathcal{P}$ nazwiemy \textbf{podbazą} topologii $\mathcal{T}$, jeżeli zbiór $\mathcal{B}$ taki, że \\
+    $$\mathcal{B} = \left\{\bigcap \{V \in \mathcal{P}' : \mathcal{P}' \subset \mathcal{P}, \#\mathcal{P}' < \infty\}\right\}$$
+    jest bazą w $\mathcal{T}$.
+    \end{quote}
+
+    \subsubsection*{Uwaga.}
+    \begin{quote}
+    Zbiór $\mathcal{B}$ zawiera całą przestrzeń $X$ jako przecięcie pustej rodziny dla $\mathcal{P}' = \emptyset$. Przestrzeń ta jest również zamknięta ze względu na przecięcie dwóch zbiorów z $\mathcal{B}$. Wynika stąd, że każda rodzina $\mathcal{P} \subset 2^X$ określa pewną topologię na $X$.
+    \end{quote}
+
+    \subsubsection*{Sposoby zadawania topologii}
+    \begin{quote}
+    \textbf{Przez bazę}: \\
+    $\mathcal{B} \subset 2^X$. Definiujemy $\mathcal{T}(\mathcal{B}) := \{\bigcup \{V \in \mathcal{B}_0 : \mathcal{B}_0 \subset \mathcal{B}\}\}$
+    \end{quote}
+
+    \subsubsection*{Przykłady}
+    \begin{quote}
+    W przestrzeni metrycznej $\mathcal{T}(\{B(x, r) : x \in X, r > 0\}) = \mathcal{T}$. \\
+    $\mathcal{B} = \{[a, b] : a < b, a, b \in \mathbb{R}\}$. \\
+    $(0, 1) = \bigcup \{[\frac{1}{n}, 1 - \frac{1}{n}] : n \in \mathbb{N}\}$. \\
+    Topologia nie spełnia c), bo $[a, b] \cap [b, c] = \{b\}$.
+    \end{quote}
+
+    \subsubsection*{Fakt}
+    \begin{quote}
+    $\mathcal{T}(\mathcal{B})$ jest topologią $\iff$ \\
+    a) $\bigcup_{U \in \mathcal{B}} U = X$. \\
+    b) $\forall_{U, V \in \mathcal{B}} \; U \cap V \in \mathcal{T}(\mathcal{B})$
+    \end{quote}
+
+    \subsubsection*{Definicja (iloczynu kartezjańskiego).}
+    \begin{quote}
+    Iloczyn kartezjański definiujemy jako \\
+    $$\prod_{\alpha \in A} X_{\alpha} := \{\varphi : A \to \bigcup_{\alpha \in A} X_{\alpha} : \forall_{\alpha \in A} \; \varphi(\alpha) \in X_{\alpha}\}.$$
+    \end{quote}
+
+    \subsubsection*{Pewnik wyboru}
+    \begin{quote}
+    $$\forall_{\alpha \in A} \; X_{\alpha} \neq \emptyset \implies \prod_{\alpha \in A} \{X_{\alpha} : \alpha \in A\} \neq \emptyset$$
+    $\exists_{\varphi} \; \varphi : A \to \bigcup_{\alpha \in A} X_{\alpha}, \; \forall_{\alpha \in A} \; \varphi(\alpha) \in X_{\alpha}$ (\textbf{selektor})
+    \end{quote}
+}
+
+\zagadnienie{AM3-W3, 15.10.25 (bez uzupełnionych dowodów)}{}
+{
+
+    \begin{quote}
+    $(X_\alpha, \mathfrak{T}_\alpha)$, $X = \prod \{X_\alpha : \alpha \in A\}$ \\
+    \end{quote}
+
+    \subsubsection*{Definicja cylindra otwartego}
+    \begin{quote}
+    Cylindrem (otwartym) w $X$ nazywamy zbiór: \\
+    $C_\alpha(U_\alpha) = \{\varphi \in X : \varphi_\alpha \in U_\alpha\}$, $U_\alpha \in \mathfrak{T}_\alpha$
+    \end{quote}
+
+    \subsubsection*{Definicja Topologii Tichonowa (produktowej)}
+    \begin{quote}
+    Topologia Tichonowa na $X$ jest zadana przez podbazę \\
+    $\mathcal{P}_X = \{C_\alpha(U_\alpha) : \alpha \in A, U_\alpha \in \mathfrak{T}_\alpha\}$ \\
+    $\mathcal{B}_X = \mathcal{B}(\mathcal{P}_X) = \{\bigcap_{j=1}^n C_{\alpha_j}(U_{\alpha_j}) : n=0,1,2,\dots, \alpha_i \in A, U_{\alpha_i} \in \mathfrak{T}_{\alpha_i}\}$ \\
+    Dla produktu skończenie wielu przestrzeni $X_1, \dots, X_n$, \\
+    $\mathcal{B}_X = \{\prod_{j=1}^n U_j : \forall_j \; U_j \in \mathfrak{T}_j\}$
+    \end{quote}
+    }
+
+    \subsubsection*{Stwierdzenie o zbieżności w topologii Tichonowa}
+    \begin{quote}
+    Jeśli dany jest ciąg $(\varphi_n)_{n=0}^\infty$ w $X$, to $\varphi_0 \in \mathrm{Lim} (\varphi_n)_{n=1}^\infty \iff \forall_{\alpha \in A} \; \varphi_0(\alpha) \in \mathrm{Lim} (\varphi_k(\alpha))_{k=1}^\infty$ \\
+    $(X_1, d_1), \dots, (X_n, d_n)$ - prz. metryczne , gdzie $X = \prod_{i=1}^n X_i$, $\mathfrak{T}$ - top. Tichonowa
+    \end{quote}
+
+    \subsubsection*{Definicja metryki produktowej}
+    \begin{quote}
+    $d_\pi((x_i)_{i=1}^{\hat{n}}, (\hat{x}_i)_{i=1}^{\hat{n}}) = \max \{d_i(x_i, \hat{x}_i) : i=1, \dots, \hat{n}\}$ \\
+    \end{quote}
+
+    \subsubsection*{Tw. o równości topologii dla skończonego produktu}
+    \begin{quote}
+    $\mathfrak{T}_X = \mathfrak{T}_{d_\pi}$, $x_0 = (x_1, \dots, x_{\hat{n}})$
+    \end{quote}
+
+    \subsubsection*{Definicja pokrycia i podpokrycia}
+    \begin{quote}
+    $(X, \mathfrak{T})$, $Z \subset X$. Podrodzina zbiorów otwartych $\{U_\alpha\}_{\alpha \in A}$ w $X$ \\
+    nazywa się \textbf{pokryciem (otwartym)} zbioru $Z \iff Z \subset \bigcup \{U_\alpha : \alpha \in A\}$. \\
+    Powiemu, że $\{U_\alpha\}_{\alpha \in \hat{A}}$ jest \textbf{podpokryciem} $\{U_\alpha\}_{\alpha \in A} \iff \hat{A} \subset A$ i jest pokryciem
+    \end{quote}
+
+    \subsubsection*{Definicja zbioru zwartego}
+    \begin{quote}
+    Zbiór $K \subset X$ nazywamy \textbf{zwartym} $\iff$ dla każdego pokrycia otwartego \\
+    $K$ istnieje jego podpokrycie skończone. 
+    \end{quote}
+
+    \subsubsection*{Twierdzenie o zbiorach zwartych i domkniętych}
+    \begin{quote}
+    $K \subset X$, $(X, \mathfrak{T})$ \\
+    a) Jeśli $X$ jest zwarta, a $K$ domknięty, to $K$ jest zwarty \\
+    b) Jeśli $X$ jest Hausdorffa i $K$ jest zwarty, to $K$ jest domknięty
+    \end{quote}
+
+\zagadnienie{AM3-W4, 15.10.25 (bez uzupełnionych dowodów)}{}
+{
+    \subsubsection*{Twierdzenie Tichonowa}
+    \begin{quote}
+    Jeśli $\forall_{\alpha \in A} \; (X_\alpha, \mathfrak{T}_\alpha)$ jest zwarta, to $\prod \{X_i : i \in A\}$ jest zwarty.
+    \end{quote}
+
+    \subsubsection*{Twierdzenie o funkcjach ciągłych na zbiorach zwartych}
+    \begin{quote}
+    $f: X \to Y$ ciągła, $K \subset X$ jest zwarty. \\
+    Wówczas: \\
+    a) $f(K)$ jest zwarty w $Y$. \\
+    b) Jeśli $Y = \mathbb{R}$, to $f$ przyjmuje swoje kresy na $K$: \\
+    $\exists_{x_{\mathrm{min}} \in K} \; f(x_{\mathrm{min}}) = \inf \{f(x) : x \in K\}$ \\
+    $\exists_{x_{\mathrm{max}} \in K} \; f(x_{\mathrm{max}}) = \sup \{f(x) : x \in K\}$ \\
+    c) Jeśli $(X, d_X)$ oraz $(Y, d_Y)$ są prz. met. , to $f$ jest jednostajnie ciągła na $K$: \\
+    $\forall_{\varepsilon > 0} \; \exists_{\delta > 0} \; \forall_{x, y \in K} \; d_X(x, y) < \delta \implies d_Y(f(x), f(y)) < \varepsilon$.
+    \end{quote}
+
+    $(X, d)$, $Z \subset X$, ustalmy $\varepsilon > 0$. \\
+    \subsubsection*{Definicja sieci}
+    \begin{quote}
+    Zbiór skończony $\{x_1, \dots, x_p\} \subset X$ jest \textbf{siecią o prześwicie $\varepsilon$} dla \\
+    $Z \iff \bigcup_{j=1}^p B(x_j, \varepsilon) \supset Z$.
+    \end{quote}
+
+    \subsubsection*{Definicja zbioru całkowicie ograniczonego}
+    \begin{quote}
+    Zbiór $Z \subset X$ nazywamy \textbf{całkowicie ograniczonym} $\iff$ \\
+    $\iff \forall_{\varepsilon > 0}$ istnieje sieć o prześwicie $\varepsilon$.
+    \end{quote}
+
+    \subsubsection*{Uwaga}
+    \begin{quote}
+    Jeśli istnieje sieć o prześwicie $\varepsilon$, to istnieje sieć o prześwicie \\
+    $2\varepsilon$ taka, że $\forall_{i} \; x_i \in Z$.
+    \end{quote}
+
+    \subsubsection*{Definicja ciągu zdystansowanego}
+    \begin{quote}
+    Ciąg $(x_n)$ nazywamy \textbf{zdystansowanym o pewne $\varepsilon > 0$} $\iff$ \\
+    $\forall_{n, \hat{n}} \; n \ne \hat{n} \; d(x_n, x_{\hat{n}}) \ge \varepsilon$. \\
+    \textbf{zdystansowany} $\iff \exists_{\varepsilon > 0}$ zdystansowany o $\varepsilon$.
+    \end{quote}
+
+    \subsubsection*{Twierdzenie o kryterium całkowitej ograniczoności}
+    \begin{quote}
+    Zbiór jest \textbf{całkowicie ograniczony} $\iff$ nie istnieje w nim ciąg zdystansowany.
+    \end{quote}
+}
+\zagadnienie{AM3-W5, 16.10.25 (bez uzupełnionych dowodów)}{}
+{
+\subsubsection*{Definicja punktu skupienia ciągu}
+    \begin{quote}
+    $(X, \mathfrak{T})$, $(x_n)$, $x_n \in X$. \\
+    Powiemu, że $x_0 \in X$ jest \textbf{punktem skupienia ciągu $(x_n)$} $\iff$ \\
+    $x_0 \in \mathrm{Acc}(x_n)_{n=1}^\infty = \{x \in X: \forall_{x \in U \in \mathfrak{T}} \; \#\{n \in \mathbb{N} : x_n \in U\} = \infty\}$ \\
+    Uwaga: $\mathrm{Lim}(x_n) \subset \mathrm{Acc}(x_n)$
+    \end{quote}
+
+    \subsubsection*{Twierdzenie (o warunkach zwartości w przestrzeni metrycznej)}
+    \begin{quote}
+    $(X, d)$, $K \subset X$. NWSR: \\
+    a) $K$ jest zwarty \\
+    b) Każdy ciąg $(x_n)$ o wyrazach z $K$ ma punkt skupienia należący do $K$. \\
+    c) Każdy ciąg $(x_n)$ o wyrazach z $K$ ma podciąg zbieżny do granicy w $K$. \\
+    d) $K$ jest całkowicie ograniczony i zupełny jako przestrzeń użytkowa
+    \end{quote}
+
+    \subsubsection*{Twierdzenie o całkowitej ograniczoności w przestrzeniach $\mathbb{R}^m$}
+    \begin{quote}
+    Jeśli $K \subset \mathbb{R}^m$ jest ograniczony, to jest całkowicie ograniczony.
+    \end{quote}
+
+    \subsubsection*{Twierdzenie Heinego-Borela}
+    \begin{quote}
+    Zbiór $K \subset \mathbb{R}^m$ jest \textbf{zwarty} $\iff$ \textbf{ograniczony} i \textbf{domknięty}
+    \end{quote}
+
+    \subsubsection*{Definicja cegły w $\mathbb{R}^n$}
+    \begin{quote}
+    $C = \prod_{i=1}^n [c_i, \hat{c}_i]$, $c_i \le \hat{c}_i$
+    \end{quote}
+
+    \subsubsection*{Definicja objętości}
+    \begin{quote}
+    Objętością cegły nazywamy liczbę:
+    $\mathrm{Vol}(C) = \prod_{i=1}^n (\hat{c}_i - c_i)$
+    
+\end{quote}
+    \subsubsection*{Lemat (szkolny)}
+    \begin{quote}
+    Zachodzi równość \\
+    $(a_{1,1} + \dots + a_{1, p_1})(a_{2,1} + \dots + a_{2, p_2})\dots(a_{m,1} + \dots + a_{m, p_m}) = \prod_{j=1}^m \sum_{k=1}^{p_j} a_{j,k} = \sum_{\varphi \in \prod_{j=1}^m \{1, \dots, p_j\}} \prod_{j=1}^m a_{j, \varphi(j)}$ \\
+    (rozdzielność mnożenia względem dodawania).
+    \end{quote}
+
+}
+\zagadnienie{AM3-W6, 22.10.25}{}
+{
+}
+\zagadnienie{AM3-W7, 22.10.25}{}
+{
+}
+
+\end{document}
