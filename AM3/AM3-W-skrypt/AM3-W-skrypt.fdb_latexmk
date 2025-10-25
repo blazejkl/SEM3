@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1761399100.60319 "/Users/blazej_klepacki/Documents/Repo/SEM3/AM3/am3-w-skrypt/AM3-W-skrypt.tex" "AM3-W-skrypt.pdf" "AM3-W-skrypt" 1761399101.05585 0
-  "/Users/blazej_klepacki/Documents/Repo/SEM3/AM3/am3-w-skrypt/AM3-W-skrypt.tex" 1761399091.43174 19719 92d84ac2af745f5e029063e6cb0c416f ""
+["pdflatex"] 1761399391.99564 "/Users/blazej_klepacki/Documents/Repo/SEM3/AM3/AM3-W-skrypt/AM3-W-skrypt.tex" "AM3-W-skrypt.pdf" "AM3-W-skrypt" 1761399392.45218 0
+  "/Users/blazej_klepacki/Documents/Repo/SEM3/AM3/AM3-W-skrypt/AM3-W-skrypt.tex" 1761399091.43174 19719 92d84ac2af745f5e029063e6cb0c416f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
@@ -72,7 +72,7 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1744296677 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1744296639 3345734 865839658e49ef68b135e48f46028762 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "AM3-W-skrypt.aux" 1761399100.98791 170 d86ae9616108ccb29cc6bb57da830819 "pdflatex"
+  "AM3-W-skrypt.aux" 1761399392.38095 170 d86ae9616108ccb29cc6bb57da830819 "pdflatex"
   "AM3-W-skrypt.tex" 1761399091.43174 19719 92d84ac2af745f5e029063e6cb0c416f ""
   (generated)
   "AM3-W-skrypt.aux"
