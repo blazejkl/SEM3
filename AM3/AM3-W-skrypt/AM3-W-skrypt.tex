@@ -11,6 +11,16 @@
 \usepackage{enumitem}
 \usepackage{amssymb} % Symbole matematyczne, w tym \mathbb
 \usepackage{multicol}
+\usepackage[most]{tcolorbox}
+\tcbset{
+  mybox/.style={
+    colback=gray!5, % kolor tła
+    colframe=black, % kolor ramki
+    boxrule=0.5pt,  % grubość ramki
+    arc=2pt,        % zaokrąglenie rogów
+    left=6pt,right=6pt,top=6pt,bottom=6pt
+  }
+}
 
 % Ustawienia strony
 \geometry{margin=2cm}
@@ -18,6 +28,8 @@
 % Nagłówek
 \pagestyle{fancy}
 \fancyhf{} % Czyszczenie nagłówków i stopek
+\fancyhead[C]{AM3-W-skrypt}
+\fancyhead[R]{\thepage} % numer strony po prawej
 \renewcommand{\headrulewidth}{0pt} % Usunięcie linii w nagłówku
 
 
@@ -32,154 +44,171 @@
 \begin{document}
 
 % treść wykładu
-\zagadnienie{AM3-W1, 08.10.25 (niesformatowane z wykładem) (bez uzupełnionych dowodów)}{}
+\zagadnienie{AM3-W1, 08.10.25}{}
 {
-    \subsubsection*{Definicja (przestrzeni topologicznej).}
+  \subsubsection*{Topologia}
     \begin{quote}
-    \textbf{Przestrzenią topologiczną} nazywamy parę $(X, \mathcal{T})$, gdzie $X$ to zbiór, a $\mathcal{T} \subset 2^X$ oraz spełnione są warunki:\\
-    (1) $\emptyset, X \in \mathcal{T}$,\\
-    (2) $\forall_{\alpha \in A} U_{\alpha} \in \mathcal{T} \Rightarrow \bigcup \{U_{\alpha}: \alpha \in A\} \in \mathcal{T}$,\\
-    (3) $U_1, U_2 \in \mathcal{T} \Rightarrow U_1 \cap U_2 \in \mathcal{T}$.\\\\
-    Zbiory należące do topologii nazywamy \textbf{otwartymi}. \\
-    Dopełnienia zbiorów otwartych nazywamy zbiorami \textbf{domkniętymi}. \\\\
-    $\mathcal{T} = 2^X \leftarrow$ \textbf{topologia dyskretna} \\
-    $\mathcal{T} = \{\emptyset, X\} \leftarrow$ \textbf{topologia antydyskretna}
+    \textbf{Def.}\\ \( X \) – zbiór. Rodzinę zbiorów \( \mathcal{T} \subset 2^X \) nazywamy topologią \( \Leftrightarrow \)\\
+    a) \( \varnothing, X \in \mathcal{T} \)\\
+    b) \( \forall_{\alpha \in A} \;U_\alpha \in \mathcal{T} \Rightarrow \bigcup \; \{U_\alpha: \alpha \in A\} \in \mathcal{T} \)\\
+    c) \( U, V \in \mathcal{T} \Rightarrow U \cap V \in \mathcal{T} \)\\
+    \\
+    Zbiory należące do \( \mathcal{T} \) nazywamy otwartymi.\\
+    \( A^c \in \mathcal{T} \Rightarrow A \) jest domknięty.\\\\
+    \textbf{Przykład}\\
+    $\mathcal{T} = 2^X \leftarrow$ topologia dyskretna \\
+    $\mathcal{T} = \{\emptyset, X\} \leftarrow$ topologia antydyskretna
     \end{quote}
 
-
-    \subsubsection*{Definicja (przestrzeni metrycznej).}
+    \subsubsection*{Przestrzeń metryczna}
     \begin{quote}
-    \textbf{Przestrzenią metryczną} nazywamy parę $(X, d)$, gdzie $X$ to zbiór, a $d: X \times X \to [0, \infty)$ to funkcja, zwana \textbf{metryką}, spełniająca następujące warunki:\\
+    \textbf{Def.}\\ Przestrzenią metryczną nazywamy parę $(X, d)$, gdzie $X$ to zbiór, a $d: X \times X \to [0, \infty)$ to funkcja, zwana metryką, spełniająca następujące warunki:\\
     (1) $d(x, y) = d(y, x)$,\\
     (2) $d(x, y) = 0 \iff x = y$,\\
     (3) $d(x, y) \leq d(x, z) + d(z, y)$.\\
-    Trzecia własność jest równoważna \textbf{dolnej nierówności trójkąta}:
-    $$
-    d(x, z) \geq |d(x, y) - d(y, z)|.
-    $$
+
+    Niech \( (X,d) \) będzie przestrzenią metryczną.\\
+    \( A \subset X \) jest otwarty, gdy
+    \[
+    \forall_{x_0 \in A}\; \exists_{r>0}\; B(x_0, r) \subset A.
+    \]
+
+    \begin{tcolorbox}[mybox]
+    \textbf{ad.b.}\\
+    \( x_0 \in \bigcup_{\alpha \in A} U_\alpha \Leftrightarrow \exists_{\alpha_0 \in A}\; x_0 \in U_{\alpha_0} \Rightarrow \exists_{r>0}\; B(x_0,r) \subset U_{\alpha_0} \subset \bigcup_{\alpha \in A} U_\alpha \).\\
+
+    \textbf{ad.c.}\\
+    \( x_0 \in U \cap \widehat{U} \Rightarrow \exists_{r, \widehat{r} > 0}\; B(x_0, r) \subset U,\; B(x_0, \widehat{r}) \subset \widehat{U} \Rightarrow B(x_0, \min\{r, \widehat{r}\}) \subset U \cap \widehat{U}.
+    \)\\
+    \end{tcolorbox}
+
+    ($\mathcal{T}_d$ nazywamy topologią zadaną przez metrykę $d$, jeśli zachodzi: $U \in \mathcal{T}_d \iff \forall_{x \in U} \exists_{\varepsilon > 0} B(x, \varepsilon) \subset U$)
     \end{quote}
 
-    \subsubsection*{Definicja (topologii zadanej przez metrykę, kuli).}
+    \subsubsection*{Wnętrze i dokmnięcie zbioru}
     \begin{quote}
-    Rodzinę $\mathcal{T}_d$ nazywamy \textbf{topologią zadaną przez metrykę $\mathbf{d}$}, jeśli zachodzi:
-    $$U \in \mathcal{T}_d \iff \forall_{x \in U} \exists_{\varepsilon > 0} B(x, \varepsilon) \subset U,$$
-    gdzie
-    $$B(x, \varepsilon) = \{y \in X : d(x, y) < \varepsilon\}.$$
-    \end{quote}
+    \textbf{Def.}\\ Wnętrzem zbioru $A$ nazwiemy sumę wszystkich zbiorów otwartych zawartych w $A$:
+    $$\mathrm{int}(A) = \bigcup \{U \in \mathcal{T} : U \subset A\}$$
 
-    \subsubsection*{Twierdzenie (o topologii zadanej przez metrykę).}
-    \begin{quote}
-    Rodzina $\mathcal{T}_d$ jest \emph{topologią}.
-    \end{quote}
-
-    \subsubsection*{Definicja (topologii metryzowalnej).}
-    \begin{quote}
-    Jeśli możemy znaleźć metrykę zadającą topologię, to nazywamy tę topologię \textbf{metryzowalną}.
-    \end{quote}
-
-    \subsubsection*{Definicja (wnętrza zbioru).}
-    \begin{quote}
-        Wnętrzem zbioru $A$ nazwiemy sumę wszystkich zbiorów otwartych zawartych w $A$:
-        $$\mathrm{int}(A) = \bigcup \{U \in \mathcal{T} : U \subset A\}$$
-    \end{quote}
-
-    \subsubsection*{Definicja (domknięcia zbioru).}
-    \begin{quote}
-    \textbf{Domknięciem} $A$ nazywamy przecięcie wszystkich zbiorów domkniętych zawierających $A$:
+    \textbf{Def.}\\ Domknięciem $A$ nazywamy przecięcie wszystkich zbiorów domkniętych zawierających $A$:
     $$\overline{A} = \bigcap \{F : F^c \in \mathcal{T}, F \supset A\}$$
-    \end{quote}
 
-    \subsubsection*{Stwierdzenie (o wnętrzu i domknięciu).}
-    \begin{quote}
+    \textbf{Stwierdzenie o wnętrzu i domknięciu}
     \begin{enumerate}[label=\alph*)]
-        \item $\mathrm{int}\, A \subset A \subset \overline{A}$
-        \item $\mathrm{int}\, A \in \mathcal{T}, (\overline{A})^c \in \mathcal{T}$
-        \item $\mathrm{int}\, A \supset \{x \in A: \exists_{x \in U \in \mathcal{T}} \; U \subset A\}$
-        \item $\overline{A} = (\mathrm{int}\, A^c)^c$
+    \item $\mathrm{int}\, A \subset A \subset \overline{A}$
+    \item $\mathrm{int}\, A \in \mathcal{T}, (\overline{A})^c \in \mathcal{T}$
+    \item $\mathrm{int}\, A \supset \{x \in A: \exists_{x \in U \in \mathcal{T}} \; U \subset A\}$
+    \item $\overline{A} = (\mathrm{int}\, A^c)^c$
     \end{enumerate}
-    \end{quote}
 
-    \subsubsection*{Wniosek}
-    \begin{quote}
+    \begin{tcolorbox}[mybox]
+    \textbf{ad.\;a}\\
+    \( x \in \operatorname{int}A \Rightarrow \exists_{U \in \mathcal{T}}\, x \in U \subset A \)\\
+    \( \overline{A} = \bigcap \{ F : F^c \in \mathcal{T},\, F \supset A \} \Rightarrow A \subset \overline{A} \Rightarrow \operatorname{int}A \subset A \subset \overline{A}. \)\\[6pt]
+
+    \textbf{ad.\;b}\\
+    \( \operatorname{int}A = \bigcup \{ U \in \mathcal{T} : U \subset A \} \in \mathcal{T} \\
+    \overline{A}^c = \left( \bigcap \{ F : F^c \in \mathcal{T},\, F \supset A \} \right)^c
+    = \bigcup \{ F^c : F^c \in \mathcal{T},\, F^c \subset A^c \}
+    = \bigcup \{ U \in \mathcal{T} : U \subset A^c \}
+    = \operatorname{int}A^c \)\\
+
+    \textbf{ad.\;c}\\
+    \(x \in \operatorname{int}A \Leftrightarrow x \in \bigcup \{ U \in \mathcal{T} : U \subset A \} \Rightarrow \exists_{U \in \mathcal{T}}\, x \in U \subset A.\\
+    \exists_{U \subset A, U \in \mathcal{T}}\, x \in U \Rightarrow x \in \bigcup \{ U \in \mathcal{T} : x \in U \subset A \} = \operatorname{int}A.\)\\
+
+    \textbf{ad.\;d}\\
+    Rachunek z ad.b. pokazuje \( \overline{A} = (\operatorname{int}A^c)^c. \)
+    \end{tcolorbox}
+
+    \textbf{Wniosek}\\\\
     $x \in \overline{A}^c \iff \exists_{U \in \mathcal{T}} \; x \in U \subset A^c \quad (\text{wynika z d) i c) stw., bo } \exists_{U \in \mathcal{T}} \; x \in U \subset A^c \iff x \in \mathrm{int}\, A^c)$
     \end{quote}
 
-    \subsubsection*{Definicja (Brzegu).}
+    \subsubsection*{Brzeg}
     \begin{quote}
-    Brzegiem zbioru $A$ nazywamy zbiór $\partial A = \overline{A} \setminus \mathrm{int}\, A$
+    \textbf{Def.}\\ Brzegiem zbioru $A$ nazywamy zbiór $\partial A = \overline{A} \setminus \mathrm{int}\, A$\\
+
+    \textbf{Wniosek}\\
+    $x \in \partial A \iff \forall_{x \in U \in \mathcal{T}} \; U \cap A \neq \emptyset, U \cap A^c \neq \emptyset$\\
+
+    \begin{tcolorbox}[mybox]
+    \textbf{Dowód}\\ 
+    \( x \in \partial A \Leftrightarrow x \in \overline{A},\, ale\; x \notin \operatorname{int}A. \)\\
+    Gdyby \( \exists_{x \in U \in \mathcal{T}}\; U \cap A = \varnothing \Rightarrow U \subset A \Rightarrow x \in \operatorname{int}A \Rightarrow x \in \overline{A}^c \)\; sprzeczność\\
+    \( U \cap A^c = \varnothing \Rightarrow U \subset A \Rightarrow x \in U \subset A \Rightarrow x \in \operatorname{int}A \)\; sprzeczność\;\(\Box\)
+    \end{tcolorbox}
     \end{quote}
 
-    \subsubsection*{Wniosek}
-    \begin{quote}
-        $x \in \partial A \iff \forall_{x \in U \in \mathcal{T}} \; U \cap A \neq \emptyset, U \cap A^c \neq \emptyset$
-    \end{quote}
-
-    \subsubsection*{Twierdzenie (o trójpodziale).}
-    \begin{quote} Dla każdego zbioru $A$ przestrzeń $X$ rozpada się na sumę trzech rozłącznych zbiorów: \\
+    \subsubsection*{Twierdzenie o trichotomii}
+    \begin{quote} 
+    \textbf{Tw.}\\
+    Dla każdego zbioru $A$ przestrzeń $X$ rozpada się na sumę trzech rozłącznych zbiorów: \\
     $$X = \mathrm{int}(A) \sqcup \mathrm{int}(A^c) \sqcup \partial A.$$
-    \end{quote}
 
-    \subsubsection*{Przykład}
-    \begin{quote}
+    \textbf{Przykład}\\
     $\mathrm{int}\, \mathbb{Q} = \emptyset, \mathrm{int}\, \mathbb{Q}^c = \emptyset, \mathrm{int}\, \partial \mathbb{Q} = \mathbb{R}$
     \end{quote}
 
-    \subsubsection*{Definicja (zbiór gęsty).}
+
+    \subsubsection*{Zbiór gęsty}
     \begin{quote}
-    $A$ jest gęsty w $X \iff \overline{A} = X$
+    \textbf{Def.}\\
+        $A$ jest gęsty w $X \iff \overline{A} = X$
     \end{quote}
 
-    \subsubsection*{Przykład (Zbiór Cantora).}
+    \subsubsection*{Zbiór graniczny}
     \begin{quote}
-    Zbiór Cantora: domknięty, nigdzie gęsty, puste wnętrze (konstr. geom: zaczynamy od $C_0 = \langle 0, 1 \rangle$, z $C_0$ usuwamy środkową $\frac{1}{3}$ i otrzymujemy $C_1$, z każdego odcinka $C_1$ robimy to samo, $\dots$, powtarzamy tę procedurę w nieskończoność, zbiór Cantora to zbiór punktów, które pozostaną po wykonaniu $\infty$ wielu kroków, formalnie $C = \bigcap_{n=0}^{\infty} C_n$
+    \textbf{Def.}\\
+    Zbiorem granicznym nazywamy \(Lim(x_n)_{n=1}^\infty := \{x_0 \in X: \forall_{x_0 \in U \in \mathcal{T}} \; \#\{n \in \mathbb{N}: x_n \notin U\} < \infty\}. \)
     \end{quote}
 
-    \subsubsection*{Definicja (zbioru granicznego).}
+    \subsubsection*{Przeliczalna baza otoczeń}
     \begin{quote}
-    Niech $(X, \mathcal{T})$ będzie przestrzenią topologiczną, a $(x_n) \in X$. Mówimy, że $x_0$ należy do \textbf{zbioru granicznego} ciągu $(x_n)$, jeżeli \\
-    $$\forall_{U \in \mathcal{T}, x_0 \in U} \; \#\{n \in \mathbb{N}: x_n \notin U\} < \infty.$$
-    Zbiór graniczny oznaczamy $\Lambda(x_n)$.
-    \end{quote}
+    \textbf{Def.}\\
+    Mówimy, że $x_0$ ma przeliczalną bazę otoczeń $\iff$ $\exists_{\{V_n\}_{n=1}^{\infty} \subset \mathcal{T}} \; \forall_{n} \; x_0 \in x_n \; \wedge \; \forall_{x \in U \in T} \; \exists_n \; V_n \subset U$\\
 
-    \subsubsection*{Definicja (przeliczalnej bazy otoczeń $x_0$).}
-    \begin{quote}
-    Mówimy, że $x_0$ ma przeliczalną bazę otoczeń $\iff$ $\exists_{\{V_n\}_{n=1}^{\infty} \subset \mathcal{T}} \; \forall_{n} \; x_0 \in x_n, \forall_{x \in U \in T} \; \exists_n \; V_n \subset U$
-    \end{quote}
+    \textbf{Def.}\\
+    Mówimy, że przestrzeń topologiczna $(X, \mathcal{T})$ ma przeliczalną bazę otoczeń (pierwszy warunek przeliczalności) $\iff$ każdy punkt $x \in X$ ma przeliczalną bazę otoczeń.\\
 
-    \subsubsection*{Definicja (przeliczalna baza otoczeń p. topologicznej).}
-    \begin{quote}
-    Mówimy, że przestrzeń topologiczna $(X, \mathcal{T})$ ma przeliczalną bazę otoczeń (\textbf{pierwszy warunek przeliczalności}) $\iff$ każdy punkt $x \in X$ ma przeliczalną bazę otoczeń.
-    \end{quote}
+    \textbf{Uwaga}\\
+    Przestrzenie metryczne mają przeliczalne bazy otoczeń.\\
 
-    \subsubsection*{Uwaga}
-    \begin{quote}
-    Przestrzenie metryczne mają przeliczalne bazy otoczeń.
-    \end{quote}
-
-    \subsubsection*{Przykłady}
-    \begin{quote}
+    \textbf{Przykłady}\\
     1. $\mathcal{T} = 2^X$ \\
     $x_k \in \Lambda(x_n) \iff \exists_{n_0 \in \mathbb{N}} \; \forall_{n \geq n_0} \; x_n = x_0$ \\
     2. $\mathcal{T} = \{\emptyset, X\}$ \\
-    $\Lambda(x_n) = X$
+    $\Lambda(x_n) = X$\\
     \end{quote}
 
-    \subsubsection*{Definicja (topologii Hausdorffa).}
+    \subsubsection*{Topologia Hausdorffa}
     \begin{quote}
+    \textbf{Def.}\\
     Parę $(X, \mathcal{T})$ nazywamy \textbf{topologią Hausdorffa}, jeżeli spełniony jest warunek \\
     $$\forall_{x_1, x_2 \in X, x_1 \neq x_2} \; \exists_{U_1 \ni x_1, U_2 \ni x_2, U_1, U_2 \in \mathcal{T}} \; U_1 \cap U_2 = \emptyset.$$
-    \end{quote}
 
-    \subsubsection*{Uwaga.}
-    \begin{quote}
-    Dla dowolnego ciągu $(x_n)$ w topologii Hausdorffa zachodzi $\#\Lambda(x_n) \leq 1$.
-    \end{quote}
+    \textbf{Uwaga}\\
+    Kada przestrzeń metryczna jest przestrzenią Hausdorffa.
+    \begin{tcolorbox}[mybox]
+    \( d_0 = d(x, \hat{x}) > 0 \)\\
+    \( U = B(x, \tfrac{d_0}{3}), \;\; \hat{U} = B(\hat{x}, \tfrac{d_0}{3}). \)
+    \end{tcolorbox}
 
-    \subsubsection*{Uwaga.}
-    \begin{quote}
-    Dowolna przestrzeń metryczna jest przestrzenią Hausdorffa.
+    \textbf{Fakt}\\
+    Jeśli \( (X, \mathcal{T}) \) jest prz. Hausdorffa, to dla dowolnego ciągu \( (x_n)_{n=1}^\infty \)
+    \(
+    \# Lim (x_n) \le 1.
+    \)
+    \begin{tcolorbox}[mybox]
+    \textbf{Dowód}\\
+    Przypuśćmy, że \( x, \hat{x} \in Lim (x_n),\; x \ne \hat{x}. \) Wybieramy \( U, \hat{U}. \)\\
+    \[
+    \{ n \in \mathbb{N} : x_n \in U \} \wedge \{ n \in \mathbb{N} : x_n \in \hat{U} \} = \varnothing \Rightarrow
+    \{ n \in \mathbb{N} : x_n \notin U \} \cup \{ n \in \mathbb{N} : x_n \in \hat{U} \} = \mathbb{N}.
+    \]
+    Wobec tego jeden z tych zbiorów jest nieskończony, przez co odpowiedni punkt nie należy do \( Lim (x_n). \;\Box \)
+    \end{tcolorbox}
     \end{quote}
-
 }
 
 \zagadnienie{AM3-W2, 08.10.25 (niesformatowane z wykładem) (bez uzupełnionych dowodów)}{}
@@ -437,11 +466,35 @@
     \end{quote}
 
 }
+
 \zagadnienie{AM3-W6, 22.10.25}{}
 {
+
 }
 \zagadnienie{AM3-W7, 22.10.25}{}
 {
 }
+
+\zagadnienie{AM3-W8, 23.10.25}{}
+{
+}
+
+\zagadnienie{AM3-W9, 29.10.25}{}
+{
+}
+
+\zagadnienie{AM3-W10, 29.10.25}{}
+{
+}
+
+\zagadnienie{AM3-W11, 30.10.25}{}
+{
+    \begin{tcolorbox}[mybox]
+    \subsubsection*{X}
+    \begin{quote}
+    \end{quote}
+    \end{tcolorbox}
+}
+
 
 \end{document}
