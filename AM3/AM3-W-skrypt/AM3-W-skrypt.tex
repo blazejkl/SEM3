@@ -211,102 +211,108 @@
     \end{quote}
 }
 
-\zagadnienie{AM3-W2, 08.10.25 (niesformatowane z wykładem) (bez uzupełnionych dowodów)}{}
+\zagadnienie{AM3-W2, 08.10.25}{}
 {
-    \subsubsection*{Definicja (domknięcia ciągowego).}
+    \subsubsection*{Domknięcie ciągowe}
     \begin{quote}
-    Domknięciem ciągowym $A$ nazywamy zbiór \\
-    $$\mathrm{scl}(A) := \{x_0 \in X: \exists_{(x_n) \in A} \; x_0 \in \Lambda((x_n)_{n=1}^{\infty})\}.$$
-    \end{quote}
-
-    \subsubsection*{Twierdzenie (o domknięciu i domknięciu ciągowym).}
-    \begin{quote}
-    Zachodzi zawieranie $\mathrm{scl}(A) \subset \overline{A}$, a jeżeli topologia jest metryzowalna, to $\mathrm{scl}(A) = \overline{A}$.
-    \end{quote}
-
-    \subsubsection*{Uwaga.}
-    \begin{quote}
-    Bez założenia metryzowalności równość nie jest prawdziwa.
-    \end{quote}
-
-    \subsubsection*{Wniosek}
-    \begin{quote}
+    \textbf{Def.}\\
+    Domknięciem ciągowym zboru $A$ nazywamy: \\
+    $$\mathrm{scl}(A) := \{x_0 \in X: \exists_{(x_n)_{n=1}^{\infty}} \; \forall_n x_n \in A, \; x_0 \in Lim(x_n)\}.$$
+    \textbf{Uwaga}\\
+    $$A \subset scl(A)$$
+    \textbf{Twierdzenie o domknięciu ciągowym} \\
+    Dla dowolnego zbioru $A$, $\mathrm{scl}(A) \subset \overline{A}$, a jeśli (X, d) jest prz. metryczną, to $\mathrm{scl}(A) = \overline{A}$.
+    \begin{tcolorbox}[mybox]
+    \textbf{Dowód}\\\\
+    Przypuśćmy, że $\overline{A}^c = \operatorname{int} A^c$. Przypuśćmy, że $x_0 \in \overline{A}^c = \operatorname{int} A^c$.\\
+    Wtedy $\exists_{\mathcal{U}_0 \in \mathcal{U}} \; \mathcal{U} \cap A = \emptyset$.\\
+    $\forall (x_n):\; \forall x_n \in A \;\; \{n \in \mathbb{N} : x_n \notin \mathcal{U}\} = \mathbb{N}$, czyli $x_0 \notin \operatorname{Lim}(x_n)$.\\[4pt]
+    $( \; \overline{A}^c \subset (\operatorname{scl} A)^c \;\; \wedge \;\; \overline{A} \supset \operatorname{scl} A \;)$\\\\
+    \text{W drugą stronę:}\\\\
+    $x_0 \in \overline{A}$, $\{V_n\}$ – jest bazą otoczeń $x_0$.\\
+    Z tw. o trichotomii $\overline{A} = \operatorname{int} A \;\sqcup\; \partial A$, stąd wynika, że\\
+    $\forall x_0 \in \mathcal{U} \in \mathcal{T} \;\; \mathcal{U} \cap A \neq \emptyset$. Dla każdego $n$ wybieramy $x_n \in V_n \cap A$ (pewnik wyboru).\\
+    Pokażemy, że $x_0 \in \operatorname{Lim}(x_n)$. Weźmy dowolne $\mathcal{U} \in \mathcal{T}$, $\mathcal{U} \ni x_0$.\\
+    Z założenia PBO, $\exists n_0 \in \mathbb{N} : V_{n_0} \subset \mathcal{U}$.\\
+    Załóżmy też uwagę, że $V_n$ jest ciągiem zstępujących otoczeń: $V_1 \supset V_2 \supset \dots \supset V_n \supset \dots$ \\ Wobec tego $\mathcal{U} \supset V_n$ dla wszystkich $n \ge n_0$.\\
+    Wobec tego $x_n \notin \mathcal{U} \Rightarrow \forall_{n \ge n_0}\; x_n \notin V_n$.\\
+    Ale z definicji ciągu $(x_n)$ widzimy, że $x_n \in V_n$. Wobec tego $x_n \notin \mathcal{U} \Rightarrow n < n_0$\\
+    $\Rightarrow \# \{n \in \mathbb{N} : x_n \notin \mathcal{U}\} < n_0 < \infty \Rightarrow x_0 \in \operatorname{Lim}(x_n) \;\Box$
+    \end{tcolorbox}
+    \textbf{Wniosek}\\
     Kryterium domkniętości zbioru w przestrzeni metrycznej: $A = \mathrm{scl}(A)$
     \end{quote}
 
-    \subsubsection*{Definicja (funkcji ciągłej).}
+
+    \subsubsection*{Funkcja ciągła}
     \begin{quote}
+    \textbf{Def.}\\
     Funkcję $f : (X, \mathcal{T}_X) \to (Y, \mathcal{T}_Y)$ nazywamy \textbf{ciągłą}, jeżeli przeciwobraz dowolnego zbioru otwartego jest otwarty, tzn. \\
     $$\forall_{U \in \mathcal{T}_Y} \; f^{-1}(U) \in \mathcal{T}_X.$$
+  
+    \textbf{Tw. o równowanych warunkach ciągłości}\\
+    Jeśli $f: X \to Y$ jest ciągła, to dla dowolnego $x \in X$ spełniony jest war. Heinego:\\
+    (H)\; $\forall (x_n)\; \forall n\; x_n\in X,\; x_0\in \operatorname{Lim}(x_n)\ \Rightarrow\ f(x_0)\in \operatorname{Lim}(f(x_n))$.\\
+    Jeśli dodatkowo topologia $X$ pochodzi od pewnej metryki, to war. Heinego implikuje ciągłość.\\
+
+    \begin{tcolorbox}[mybox]
+    \textbf{Dowód:}\\\\
+    Weźmy dowolne otoczenie otwarte $V = f(x_0)$.\\
+    $\{n \in \mathbb{N} : f(x_n) \notin V\} = \{n \in \mathbb{N} : x_n \notin f^{-1}(V)\}$.\\
+    Ale $f^{-1}(V)$ jest otwartym otoczeniem $x_0$, i wobec tego\\
+    $\#\{n \in \mathbb{N} : x_n \notin f^{-1}(V)\} < \infty$. Zatem $f(x_0) \in \operatorname{Lim}(f(x_n))$.\\\\
+    $(H) \Rightarrow (C)$ przy założeniu metryczności:\\
+    Pokażemy, że dla dowolnego $H \subset Y$ domkniętego $f^{-1}(H) = (f^{-1}(H))^c$ to otrzymujemy warunek ciągłości.\\
+    $f(H^c) \supset (f(H))^c$.\\
+    Pokażemy, że $\operatorname{scl}(f^{-1}(H)) \subset f^{-1}(H)$.\\
+    Przypuśćmy, że $x_0 \in \operatorname{scl}(f^{-1}(H))$.\\
+    $\exists_{(x_n)}\; \forall_n \; x_n \in f^{-1}(H),\; x_0 \in \operatorname{Lim}(x_n)$.\\
+    Z warunku Heinego $f(x_0) \in \operatorname{Lim}(f(x_n))$.\\
+    Ale punkty $f(x_n)$ należą do $H$ dla dowolnego $n$. Wobec tego $f(x_0) \in \operatorname{Lim}(f(x_n)) \subset \operatorname{scl} H \subset \overline{H} = H$.\\
+    Pokazaliśmy zatem, że $\operatorname{scl}(f^{-1}(H)) \subset f^{-1}(H)$.\\
+    Ponieważ $X$ jest metryzowalne, to z tw. o domknięciu ciągowym:\\
+    $\operatorname{scl}(f^{-1}(H)) = \overline{f^{-1}(H)} \subset f^{-1}(H)$, co implikuje $f^{-1}(H) = \overline{f^{-1}(H)} \;\Box$
+    \end{tcolorbox}
     \end{quote}
 
-    \subsubsection*{Definicja (funkcji ciągłej w sensie Heinego).}
+    \subsubsection*{Sposoby zadania topologii}
     \begin{quote}
-    Funkcję $f : (X, \mathcal{T}_X) \to (Y, \mathcal{T}_Y)$ nazywamy \textbf{ciągłą w sensie Heinego}, jeżeli \\
-    $$\forall_{(x_n) \in X} \; x_0 \in \Lambda((x_n)_{n=1}^{\infty}) \implies f(x_0) \in \Lambda((f(x_n))_{n=1}^{\infty}),$$
-    gdzie w przestrzeniach Hausdorffa zbiór graniczny zamieniany jest na granicę.
-    \end{quote}
-
-    \subsubsection*{Twierdzenie (o równoważnych warunkach ciągłości).}
-    \begin{quote}
-    Jeśli $f$ jest ciągła, to zachodzi warunek Heinego ciągłości. Jeśli topologia jest metryzowalna, to implikacja zachodzi też w drugą stronę.
-    \end{quote}
-
-    \subsubsection*{Definicja (bazy topologii).}
-    \begin{quote}
+    \textbf{Def.}\\
     Bazą topologii $\mathcal{T}$ nazywamy taką rodzinę $\mathcal{B} \subset \mathcal{T}$, że dowolny zbiór $U \in \mathcal{T}$ ma postać \\
     $$U = \bigcup \{V \in \mathcal{B}' : \mathcal{B}' \subset \mathcal{B}\}.$$
+
+    \textbf{Zadawanie topologii przez bazę} \\
+    $\mathcal{B} \subset 2^X$. Definiujemy $\mathcal{T}(\mathcal{B}) := \{\bigcup \{V \in \mathcal{B}_0 : \mathcal{B}_0 \subset \mathcal{B}\}\}$\\
+
+    \textbf{Przykłady}\\
+    - W przestrzeni metrycznej $\mathcal{T}(\{B(x,r) : x \in X, r > 0\}) = \mathcal{T}$.\\
+    - $\mathcal{B} = \{[a,b] : a < b,\; a,b \in \mathbb{R}\}$: A i B tak, C nie,  bo $[a,b] \cap [b,c] = \{b\} \notin \mathcal{B}$.\\
+    
+    \textbf{Fakt}\\
+    $\mathcal{T}(\mathcal{B})$ jest topologią $\Leftrightarrow$\\
+    a. $\bigcup \{U \in \mathcal{B}\} = X$\\
+    b. $\forall U_1, U_2 \in \mathcal{B}, \quad U_1 \cap U_2 \in \mathcal{T}(\mathcal{B})$\\
+
+    \textbf{Podbaza}\\
+    Rozważmy rodzinę $\mathcal{P} \subset 2^X$.\\
+    $\mathcal{B} := \Bigl\{ \bigcap_{i=1}^n V_i : V_1, \dots, V_n \in \mathcal{P} \Bigr\}$\\
+
+    \textbf{Uwaga}\\
+    Wtedy $\mathcal{P}(B)$ jest zawsze topologią.
     \end{quote}
 
-    \subsubsection*{Stwierdzenie (o bazie topologii $\mathcal{T}_d$).}
+    \subsubsection*{Iloczyn kartezjański}
     \begin{quote}
-    Kule otwarte stanowią bazę w $\mathcal{T}_d$.
+    \textbf{Def.}\\
+    $(X_\alpha)_{\alpha \in A}$\\[4pt]
+    $\prod_{\alpha \in A} X_\alpha := \Bigl\{ \varphi : A \to \bigcup_{\alpha \in A} X_\alpha : \varphi_\alpha \in X_\alpha \Bigr\}$.\\[6pt]
+    Przypuśćmy, że $\forall \alpha\; X_\alpha = X$. Wtedy $\prod_{\alpha \in A} X_\alpha = X^A$.\\[8pt]
+    \textbf{Pewnik wyboru:}\\
+    $\forall_{\alpha \in A} \; X_\alpha \neq \emptyset \Rightarrow \prod_{\alpha \in A} X_\alpha \neq \emptyset$.\\[6pt]
+    $\exists \varphi : A \to \bigcup_{\alpha \in A} X_\alpha,\; \forall \alpha \in A\; \varphi_\alpha \in X_\alpha$ (detektor)
     \end{quote}
 
-    \subsubsection*{Definicja (podbazy topologii).}
-    \begin{quote}
-    Rodzinę $\mathcal{P}$ nazwiemy \textbf{podbazą} topologii $\mathcal{T}$, jeżeli zbiór $\mathcal{B}$ taki, że \\
-    $$\mathcal{B} = \left\{\bigcap \{V \in \mathcal{P}' : \mathcal{P}' \subset \mathcal{P}, \#\mathcal{P}' < \infty\}\right\}$$
-    jest bazą w $\mathcal{T}$.
-    \end{quote}
 
-    \subsubsection*{Uwaga.}
-    \begin{quote}
-    Zbiór $\mathcal{B}$ zawiera całą przestrzeń $X$ jako przecięcie pustej rodziny dla $\mathcal{P}' = \emptyset$. Przestrzeń ta jest również zamknięta ze względu na przecięcie dwóch zbiorów z $\mathcal{B}$. Wynika stąd, że każda rodzina $\mathcal{P} \subset 2^X$ określa pewną topologię na $X$.
-    \end{quote}
-
-    \subsubsection*{Sposoby zadawania topologii}
-    \begin{quote}
-    \textbf{Przez bazę}: \\
-    $\mathcal{B} \subset 2^X$. Definiujemy $\mathcal{T}(\mathcal{B}) := \{\bigcup \{V \in \mathcal{B}_0 : \mathcal{B}_0 \subset \mathcal{B}\}\}$
-    \end{quote}
-
-    \subsubsection*{Przykłady}
-    \begin{quote}
-    W przestrzeni metrycznej $\mathcal{T}(\{B(x, r) : x \in X, r > 0\}) = \mathcal{T}$. \\
-    $\mathcal{B} = \{[a, b] : a < b, a, b \in \mathbb{R}\}$. \\
-    $(0, 1) = \bigcup \{[\frac{1}{n}, 1 - \frac{1}{n}] : n \in \mathbb{N}\}$. \\
-    Topologia nie spełnia c), bo $[a, b] \cap [b, c] = \{b\}$.
-    \end{quote}
-
-    \subsubsection*{Fakt}
-    \begin{quote}
-    $\mathcal{T}(\mathcal{B})$ jest topologią $\iff$ \\
-    a) $\bigcup_{U \in \mathcal{B}} U = X$. \\
-    b) $\forall_{U, V \in \mathcal{B}} \; U \cap V \in \mathcal{T}(\mathcal{B})$
-    \end{quote}
-
-    \subsubsection*{Definicja (iloczynu kartezjańskiego).}
-    \begin{quote}
-    Iloczyn kartezjański definiujemy jako \\
-    $$\prod_{\alpha \in A} X_{\alpha} := \{\varphi : A \to \bigcup_{\alpha \in A} X_{\alpha} : \forall_{\alpha \in A} \; \varphi(\alpha) \in X_{\alpha}\}.$$
-    \end{quote}
-
-    \subsubsection*{Pewnik wyboru}
-    \begin{quote}
-    $$\forall_{\alpha \in A} \; X_{\alpha} \neq \emptyset \implies \prod_{\alpha \in A} \{X_{\alpha} : \alpha \in A\} \neq \emptyset$$
-    $\exists_{\varphi} \; \varphi : A \to \bigcup_{\alpha \in A} X_{\alpha}, \; \forall_{\alpha \in A} \; \varphi(\alpha) \in X_{\alpha}$ (\textbf{selektor})
-    \end{quote}
 }
 
 \zagadnienie{AM3-W3, 15.10.25 (bez uzupełnionych dowodów)}{}

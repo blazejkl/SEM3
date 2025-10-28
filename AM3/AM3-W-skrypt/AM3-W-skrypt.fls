@@ -1,8 +1,8 @@
-PWD /Users/blazej_klepacki/Documents/Repo/SEM3/AM3/AM3-W-skrypt
+PWD /Users/blazej_klepacki/Documents/Repo/SEM3-1/AM3/AM3-W-skrypt
 INPUT /usr/local/texlive/2025/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/blazej_klepacki/Documents/Repo/SEM3/AM3/AM3-W-skrypt/AM3-W-skrypt.tex
+INPUT /Users/blazej_klepacki/Documents/Repo/SEM3-1/AM3/AM3-W-skrypt/AM3-W-skrypt.tex
 OUTPUT AM3-W-skrypt.log
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
