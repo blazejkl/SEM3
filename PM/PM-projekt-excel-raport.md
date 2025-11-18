@@ -1,8 +1,7 @@
 # Projekt PM Excel, temat 21 - Regresja wielomianowa z użyciem metody Gaussa
 
 **Autorzy:**  
-Jan Kochaniak, Piotr Cywoniuk, Błażej Klepacki
-
+Piotr Cywoniuk, Błażej Klepacki, Jan Kochaniak
 
 ---
 
@@ -58,7 +57,7 @@ Wybór elementu głównego poprawia stabilność obliczeń i zapobiega dzieleniu
 
 Oprócz współczynników wielomianu obliczyliśmy dwa podstawowe wskaźniki jakości dopasowania.
 
-### **SSE – suma kwadratów błędów**
+### **SSE - suma kwadratów błędów**
 
 $$
 \text{SSE} = \sum_{i=1}^n (y_i - \hat y_i)^2,
@@ -66,7 +65,7 @@ $$
 
 gdzie $\hat y_i = p(x_i)$.
 
-### **R² – współczynnik determinacji**
+### **R² - współczynnik determinacji**
 
 Najpierw liczymy średnią:
 
@@ -98,7 +97,6 @@ Wartość $R^2$ bliska 1 oznacza dobre dopasowanie modelu.
 
 ## 5. Implementacja w Excelu i VBA
 
-Projekt wykonaliśmy w Excelu z wykorzystaniem VBA.  
 Arkusz zawiera:
 
 - kolumna A: wartości $x$  
@@ -106,25 +104,24 @@ Arkusz zawiera:
 - kolumna C: wartości $\hat y$ obliczane automatycznie  
 - komórka E1: stopień wielomianu $d$  
 - komórki od D2: współczynniki $a_0, a_1, \dots, a_d$  
-- komórki G1–G2: nagłówek i wartość SSE  
-- komórki H1–H2: nagłówek i wartość $R^2$
+- komórki G2-H2: wartość SSE i $R^2$
 
 W projekcie zaimplementowaliśmy następujące funkcje:
 
 ### **1. `GaussTab(A As Variant) As Variant`**
 Rozwiązanie układu liniowego metodą Gaussa z częściowym wyborem elementu głównego.
 
-### **2. `WspolczynnikiWielomianu(xR, yR, stopien)`**
-Tworzy układ równań normalnych na podstawie danych, następnie wywołuje `GaussTab`.
-
-### **3. `PolyEval(x, coeffs)`**
-Oblicza wartość wielomianu w punkcie $x$.
-
-### **4. `SSE(yR, yHatR)`**
+### **2. `SSE(yR, yHatR)`**
 Liczy sumę kwadratów błędów.
 
-### **5. `R2(yR, yHatR)`**
+### **3. `R2(yR, yHatR)`**
 Liczy współczynnik determinacji $R^2$.
+
+### **4. `WspolczynnikiWielomianu(xR, yR, stopien)`**
+Tworzy układ równań normalnych na podstawie danych, następnie wywołuje `GaussTab`.
+
+### **5. `PolyEval(x, coeffs)`**
+Oblicza wartość wielomianu w punkcie $x$.
 
 ### **6. `RegresjaPrzycisk()`**
 Makro podpięte do przycisku.  
@@ -142,14 +139,51 @@ Wszystkie obliczenia wykonywane są przez kod, zgodnie z wymaganiem projektu, ab
 
 ## 6. Przykładowe wyniki
 
-Dla przykładowych danych z lekkim szumem i wielomianu stopnia $d = 2$ otrzymaliśmy:
+### Przykład 1 – idealne dane kwadratowe
 
-- współczynniki w przybliżeniu zgodne z oczekiwanym przebiegiem danych,
-- wartość SSE około kilkuset jednostek,
-- wartość $R^2 \approx 0.86$,  
-co oznacza, że model wyjaśnia ok. 86% zmienności obserwacji.
+Pierwszy test wykonaliśmy na danych pochodzących dokładnie z funkcji kwadratowej postaci
 
-Na wykresie widać, że wielomian przechodzi „po środku” punktów pomiarowych, zgodnie z zasadą metody najmniejszych kwadratów.
+$$
+y = x^2 + 1,
+$$
+
+czyli bez żadnych zakłóceń lub błędów pomiarowych. Zestaw obejmuje punkty od $x = 1$ do $x = 8$.
+
+Po uruchomieniu programu dla stopnia $d = 2$ otrzymaliśmy współczynniki bardzo bliskie wartościom teoretycznym:
+
+- $a_0 \approx 1$  
+- $a_1 \approx 0$  
+- $a_2 \approx 1$
+
+Otrzymane wartości $\hat y_i$ pokrywają się dokładnie z wartościami rzeczywistymi $y_i$, co powoduje:
+
+- $\text{SSE} = 0$  
+- $R^2 = 1$
+
+Wykres pokazuje, że dane i wielomian na siebie nachodzą, a linia całkowicie zakrywa punkty danych. Taki wynik jest zgodny z oczekiwaniami, ponieważ model ma dokładnie ten sam stopień, co funkcja generująca dane. Ten przykład potwierdza poprawność zarówno implementacji równań normalnych, jak i metody Gaussa.
+
+![alt text](image.png)
+
+### Przykład 2 – dane nieliniowe z lekkim szumem (sinusoida)
+
+Aby sprawdzić działanie programu na bardziej złożonych danych, przetestowaliśmy go na zbiorze opartym o funkcję sinus z niewielkim szumem losowym:
+
+$$
+y \approx \sin(x) + \epsilon,\quad \epsilon \approx \pm 0.1.
+$$
+
+Dane obejmują dziesięć punktów w zakresie $x = 0$ do $x = 9$. Wartości mają wyraźnie nieliniowy, falowy przebieg, przez co stanowią dobre wyzwanie dla regresji wielomianowej.
+
+Dla wielomianu o stopniu $d = 2$ dopasowanie jest słabe: krzywa nie odwzorowuje lokalnych maksimów i minimów, a wartość $R^2$ jest niska:
+
+![alt text](image-1.png)
+
+Z kolei wielomiany stopnia $d = 3$ lub $d = 4$ znacznie lepiej podążają za kształtem sinusoidy, a współczynnik determinacji wzrasta:
+
+![alt text](image-2.png)
+
+Mimo tego nawet wielomian czwartego stopnia nie jest w stanie w pełni odtworzyć oscylacji funkcji trygonometrycznej. Przykład ten pokazuje ograniczenia regresji wielomianowej – zwiększanie stopnia poprawia dopasowanie, ale nie każdą nieliniową zależność da się dokładnie przybliżyć wielomianem niskiego stopnia.
+
 
 ---
 
@@ -157,7 +191,7 @@ Na wykresie widać, że wielomian przechodzi „po środku” punktów pomiarowy
 
 W projekcie pokazaliśmy praktyczne połączenie:
 
-- metod numerycznych (eliminacja Gaussa z pivotingiem),  
+- metod numerycznych (eliminacja Gaussa z częściowym wyborem elementu głównego),  
 - statystyki (regresja wielomianowa),  
 - i narzędzi informatycznych (VBA w Excelu).
 
@@ -168,6 +202,4 @@ Zrealizowany arkusz spełnia wszystkie wymagania:
 - liczy wskaźniki jakości dopasowania,
 - generuje wykres danych i funkcji,
 - działa jednym przyciskiem.
-
-Projekt pokazał, że nawet proste metody numeryczne można skutecznie zastosować do realnej analizy danych i łatwo zaimplementować w Excelu.
 
